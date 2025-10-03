@@ -12,8 +12,8 @@ def load_user(id):
 
 # Define User model, inherits from db.Model for database mapping
 class User(UserMixin, db.Model):
-    # Primary key column, string type
-    id: so.Mapped[str] = so.mapped_column(primary_key=True)
+    # Primary key column, int type
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
     # Username column, string (64 chars), indexed, unique
     username: so.Mapped[str] = so.mapped_column(sa.String(64), index=True, unique=True)
     # Email column, string (120 chars), indexed, unique
@@ -35,7 +35,7 @@ class User(UserMixin, db.Model):
 # Define Post model, inherits from db.Model for database mapping
 class Post(db.Model):
     #Primary Key column, string type
-    id: so.Mapped[str] = so.mapped_column(primary_key=True)
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
     # body column, string (64 chars), indexed, unique
     body: so.Mapped[str] = so.mapped_column(sa.String(140))
     #timestamp column
