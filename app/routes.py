@@ -6,6 +6,7 @@ import sqlalchemy as sa
 from flask_login import current_user,login_user, logout_user,login_required
 from app import db
 from app.models import User
+from datetime import datetime, timezone
 
 # Serves homepage for '/' and '/index'
 @app.route('/')
@@ -75,3 +76,9 @@ def user(username):
         {'author': user, 'body': 'Test post 2'}
     ]
     return render_template('user.html', user=user, posts=posts)
+#adds a last seen only if user logs in
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.now(timezone.utc)
+        db.session.commit()

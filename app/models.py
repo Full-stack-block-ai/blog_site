@@ -24,7 +24,9 @@ class User(UserMixin, db.Model):
     #posts relationship
     posts: so.WriteOnlyMapped['Post'] = so.relationship(back_populates='author')
     #about me 
-    about_me = so.Mapped[Optional[str]] = so.mapped_column(sa.String(140))
+    about_me: so.Mapped[Optional[str]] = so.mapped_column(sa.String(140))
+    #last_seen
+    last_seen: so.Mapped[Optional[datetime]] = so.mapped_column(default=lambda: datetime.now(timezone.utc))
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
